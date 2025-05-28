@@ -35,14 +35,15 @@ export const environment = {
   },
   notifications: 'https://ravishing-courtesy-production.up.railway.app/',
   notificationUser: {
-    email: 'admin@admin.com',
-    password: '12345678',
+    email: 'anderson.castilla@unicolombo.edu.co',
+    password: '082004xd',
   },
   supabaseConfig: {
-    url: 'https://unfhhqxfplhjytupvucj.supabase.co', 
+    url: 'https://unfhhqxfplhjytupvucj.supabase.co', // <-- remplaza con tu URL real
     key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVuZmhocXhmcGxoanl0dXB2dWNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwNjM0ODIsImV4cCI6MjA2MjYzOTQ4Mn0.uqmiHNVSy5dfcdv9nOWKCx71LskymBlEm4H6DAFWinw', // <-- remplaza con tu clave real
   },
 };
+
 
 
 
