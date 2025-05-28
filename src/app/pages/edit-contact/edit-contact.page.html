@@ -1,0 +1,29 @@
+<app-header [isLoggedIn]="true" [title]="'Edit Contact'"></app-header>
+
+<ion-content fullscreen class="edit-contact-page">
+  <div class="container">
+    <app-img-load></app-img-load>
+
+    <form [formGroup]="form" class="form-card">
+      <app-input
+        label="Nickname (optional)"
+        formControlName="nickname"
+        icon="person-outline"
+        placeholder="Enter the nickname"
+      ></app-input>
+
+      <app-input
+        formControlName="phone"
+        label="Phone"
+        placeholder="Enter the phone number"
+        icon="id-card-outline"
+      ></app-input>
+    </form>
+
+    <app-actions-buttons
+      [action]="'create'"
+      (clicked)="update()"
+      (otherClicked)="cancel()"
+    ></app-actions-buttons>
+  </div>
+</ion-content>

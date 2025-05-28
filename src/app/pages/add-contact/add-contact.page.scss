@@ -1,0 +1,21 @@
+.page-content {
+  --background: #f9f9f9;
+  padding: 16px;
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    app-input {
+      width: 100%;
+    }
+
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.edit-contact-page {
+  --background: #fff;
+  padding: 25px 20px;
+
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  app-img-load {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 30px;
+    border: 3px solid #2c97de;
+  }
+
+  .form-card {
+    width: 100%;
+    background: #f9f9f9;
+    padding: 25px 20px;
+    border-radius: 14px;
+    box-sizing: border-box;
+    box-shadow: none; // puedes agregar sombra si quieres
+
+    app-input {
+      margin-bottom: 20px;
+    }
+  }
+
+  app-actions-buttons {
+    margin-top: 35px;
+    width: 100%;
+  }
+}

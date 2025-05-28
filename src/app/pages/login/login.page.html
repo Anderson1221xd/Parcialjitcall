@@ -1,24 +1,50 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button routerLink="/home" fill="clear">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+<ion-content class="login-page" [scrollY]="false" fullscreen>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p>Please sign in to continue</p>
+    </div>
+
+    <form class="login-form" (ngSubmit)="onLogin()" [formGroup]="loginForm">
+      <ion-item lines="full" class="input-wrapper">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input
+          type="email"
+          placeholder="Email Address"
+          formControlName="email"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="full" class="input-wrapper">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <div class="forgot-password">
+        <a (click)="goToForgot()">Forgot Password?</a>
+      </div>
+
+      <ion-button
+        expand="block"
+        type="submit"
+        class="login-button"
+        [disabled]="loginForm.invalid"
+      >
+        Sign In
       </ion-button>
-    </ion-buttons>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content class="ion-padding">
-  <ion-item>
-    <ion-label position="floating">Correo Electrónico</ion-label>
-    <ion-input [(ngModel)]="email" type="email" required></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input [(ngModel)]="password" type="password" required></ion-input>
-  </ion-item>
-
-  <ion-button expand="full" (click)="login()">Iniciar Sesión</ion-button>
+      <div class="signup-text">
+        Don't have an account?
+        <ion-button fill="clear" size="small" (click)="goToRegister()"
+          >Sign Up</ion-button
+        >
+      </div>
+    </form>
+  </div>
 </ion-content>

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 android {
     namespace "io.ionic.starter"
     compileSdk rootProject.ext.compileSdkVersion
@@ -53,4 +52,3 @@ try {
 } catch(Exception e) {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
-apply plugin: 'com.google.gms.google-services'

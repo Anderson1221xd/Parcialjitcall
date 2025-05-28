@@ -18,7 +18,7 @@ export class NotificationsService {
 
   async initPush() {
     if (Capacitor.getPlatform() === 'web') {
-      console.log('Push notifications no disponibles en web.');
+      console.log('⚠️ Push notifications no disponibles en web.');
       return;
     }
 
@@ -35,12 +35,16 @@ export class NotificationsService {
     PushNotifications.addListener('registration', async (token: Token) => {
       console.log('✅ FCM Token:', token.value);
 
-      const user = await this.auth.currentUser;
-      if (user) {
-        const ref = this.firestore.collection('users').doc(user.uid);
-        await ref.update({ token: token.value });
-        console.log('✅ Token guardado en Firestore');
-      }
+      this.auth.authState.subscribe(async (user) => {
+        if (user) {
+          console.log('🔐 UID del usuario:', user.uid);
+          const ref = this.firestore.collection('users').doc(user.uid);
+          await ref.set({ token: token.value }, { merge: true });
+          console.log('✅ Token guardado en Firestore');
+        } else {
+          console.warn('⚠️ Usuario no autenticado. Token no guardado');
+        }
+      });
     });
 
     PushNotifications.addListener('registrationError', (err) => {
@@ -57,7 +61,7 @@ export class NotificationsService {
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (action: ActionPerformed) => {
-        console.log('📲 Acción sobre notificación', action);
+        console.log('📲 Acción sobre notificación:', action);
       }
     );
   }

@@ -1,30 +1,34 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button routerLink="/dashboard" fill="clear">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Agregar Contacto</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'➕ New Contact'" [isLoggedIn]="true"></app-header>
 
-<ion-content class="ion-padding">
-  <form (ngSubmit)="addContact()">
-    <ion-item>
-      <ion-label position="floating">Teléfono del contacto</ion-label>
-      <ion-input
-        type="tel"
-        [(ngModel)]="phone"
-        name="phone"
-        required
-      ></ion-input>
-    </ion-item>
+<ion-content fullscreen class="page-content">
+  <app-img-load></app-img-load>
 
-    <ion-button expand="full" type="submit" class="ion-margin-top">
-      Agregar
-    </ion-button>
+  <form [formGroup]="form" class="form-container">
+    <app-input
+      formControlName="nickname"
+      label="Nickname (optional)"
+      icon="person-outline"
+      placeholder="Enter the nickname"
+    ></app-input>
+
+    <app-input
+      formControlName="phone"
+      label="Phone"
+      icon="call-outline"
+      placeholder="Enter the phone number"
+    ></app-input>
+
+    <div class="actions">
+      <ion-button expand="block" color="primary" (click)="save()"
+        >Save</ion-button
+      >
+      <ion-button
+        expand="block"
+        color="medium"
+        fill="outline"
+        (click)="cancelar()"
+        >Cancel</ion-button
+      >
+    </div>
   </form>
-
-  <ion-text color="danger" *ngIf="errorMessage">{{ errorMessage }}</ion-text>
 </ion-content>

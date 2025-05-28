@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="chat-content" fullscreen>
+  <div *ngIf="messages$ | async as messages" class="messages-container">
+    <div
+      *ngFor="let msg of messages"
+      class="message"
+      [class.mine]="msg.senderId === currentUserId"
+    >
+      <ng-container [ngSwitch]="msg.type">
+        <div *ngSwitchCase="'text'" class="bubble">{{ msg.content }}</div>
+
+        <div *ngSwitchCase="'audio'" class="bubble audio-msg">
+          <ion-icon name="mic-outline"></ion-icon>
+          <audio [src]="msg.content" controls></audio>
+        </div>
+
+        <div *ngSwitchCase="'file'" class="bubble file-msg">
+          <ion-icon name="document-outline"></ion-icon>
+          <a [href]="msg.content" target="_blank"
+            >{{ msg.filename || 'Archivo adjunto' }}</a
+          >
+        </div>
+
+        <div *ngSwitchCase="'image'" class="bubble media-msg">
+          <img [src]="msg.content" alt="Imagen enviada" />
+        </div>
+
+        <div *ngSwitchCase="'video'" class="bubble media-msg">
+          <video [src]="msg.content" controls></video>
+        </div>
+
+        <div *ngSwitchDefault class="bubble">Mensaje no soportado</div>
+      </ng-container>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item lines="none" class="input-container">
+      <ion-input
+        [(ngModel)]="newMessage"
+        placeholder="Escribe un mensaje..."
+        clearInput
+        autofocus
+      ></ion-input>
+      <ion-button
+        slot="end"
+        (click)="sendMessage()"
+        [disabled]="!newMessage?.trim()"
+        fill="solid"
+        color="primary"
+      >
+        Enviar
+      </ion-button>
+    </ion-item>
+
+    <ion-buttons class="attachment-options" slot="end">
+      <ion-button (click)="toggleRecording()" title="Grabar audio">
+        <ion-icon slot="icon-only" name="mic-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="sendPicture()" title="Enviar imagen">
+        <ion-icon slot="icon-only" name="image-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="selectFile()" title="Enviar archivo">
+        <ion-icon slot="icon-only" name="document-outline"></ion-icon>
+      </ion-button>
+      <ion-button title="Enviar video">
+        <ion-icon slot="icon-only" name="videocam-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="getLocation()" title="Enviar ubicación">
+        <ion-icon slot="icon-only" name="location-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

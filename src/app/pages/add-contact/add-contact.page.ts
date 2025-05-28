@@ -1,60 +1,56 @@
 import { Component } from '@angular/core';
-import { ContactService } from 'src/app/services/contact.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { AuthService } from '../../core/services/auth.service';
+import { contactService } from '../../core/services/contact.service'; // corregido a mayúscula para convención
+import { LoaderService } from '../../shared/services/loader.service';
+
 @Component({
-  standalone: false,
   selector: 'app-add-contact',
   templateUrl: './add-contact.page.html',
   styleUrls: ['./add-contact.page.scss'],
 })
 export class AddContactPage {
-  phone: string = '';
-  errorMessage = '';
+  uid = '';
+  form: FormGroup;
 
   constructor(
-    private contactService: ContactService,
+    private navCtrl: NavController,
+    private fb: FormBuilder,
     private authService: AuthService,
-    private toastCtrl: ToastController,
-    private router: Router
-  ) {}
+    private contactService: contactService,
+    private loaderService: LoaderService
+  ) {
+    this.form = this.fb.group({
+      nickname: ['', Validators.minLength(3)],
+      phone: ['', [Validators.required, Validators.minLength(7)]],
+    });
 
-  async addContact() {
-    this.errorMessage = '';
+    this.initUser();
+  }
 
-    if (!this.phone.trim()) {
-      this.errorMessage = 'Ingrese un número de teléfono válido';
-      return;
+  private async initUser() {
+    const user = await this.authService.getCurrentUser();
+    this.uid = user?.uid || '';
+  }
+
+  async save() {
+    if (this.form.invalid) {
+      return; // o muestra algún error
     }
-
-    const currentUser = await this.authService.getCurrentUser();
-    if (!currentUser) {
-      this.errorMessage = 'Usuario no autenticado';
-      return;
-    }
-
+    await this.loaderService.show('Saving contact...');
+    const { phone, nickname } = this.form.value;
     try {
-      const success = await this.contactService.addContactByPhone(
-        currentUser.uid,
-        this.phone.trim()
-      );
-
-      if (success) {
-        const toast = await this.toastCtrl.create({
-          message: 'Contacto agregado',
-          duration: 2000,
-          color: 'success',
-        });
-        await toast.present();
-        this.phone = '';
-        this.router.navigate(['/contact']);
-      } else {
-        this.errorMessage = 'No se encontró un usuario con ese número';
-      }
+      await this.contactService.addContact(this.uid, phone, nickname);
+      this.navCtrl.back();
     } catch (error) {
-      this.errorMessage = 'Error al intentar agregar el contacto';
-      console.error(error);
+      console.error('Error saving contact:', error);
+    } finally {
+      this.loaderService.hide();
     }
+  }
+
+  cancelar() {
+    this.navCtrl.back();
   }
 }

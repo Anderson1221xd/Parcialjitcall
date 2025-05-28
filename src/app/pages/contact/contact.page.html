@@ -1,34 +1,29 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Mis Contactos</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'Contact Details'" [isLoggedIn]="true"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Mis Contactos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="contact-page" fullscreen>
+  <div class="container" *ngIf="contact">
+    <app-img-load [user]="contact.user"></app-img-load>
 
-  <ion-list *ngIf="contacts.length > 0; else noContacts">
-    <ion-item *ngFor="let contact of contacts">
-      <ion-label>
-        <h2>{{ contact.name }} {{ contact.lastname }}</h2>
-        <p>{{ contact.phone }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+    <section class="contact-card">
+      <p class="nickname" *ngIf="contact.nickname">({{ contact.nickname }})</p>
+      <h1 class="name">{{ contact.user.name }} {{ contact.user.lastname }}</h1>
 
-  <ng-template #noContacts>
-    <ion-text color="medium">
-      <p class="ion-padding">No tienes contactos guardados.</p>
-    </ion-text>
-  </ng-template>
+      <div class="contact-info">
+        <ion-icon name="call" class="icon"></ion-icon>
+        <span>{{ contact.user.phone }}</span>
+      </div>
+
+      <div class="contact-info" *ngIf="contact.user.email">
+        <ion-icon name="mail" class="icon"></ion-icon>
+        <span>{{ contact.user.email }}</span>
+      </div>
+    </section>
+
+    <app-actions-buttons
+      (clicked)="openEditionModal()"
+      (otherClicked)="call(contact.user.phone)"
+      [icon]="'videocam-outline'"
+    >
+    </app-actions-buttons>
+  </div>
 </ion-content>
-
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
-  <ion-fab-button [routerLink]="['/add-contact']">
-    <ion-icon name="person-add-outline"></ion-icon>
-  </ion-fab-button>
-</ion-fab>

@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         mavenCentral()
@@ -21,9 +21,13 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+        maven { url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+apply plugin: 'com.google.gms.google-services'

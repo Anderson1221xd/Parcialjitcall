@@ -7,12 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { AddContactPageRoutingModule } from './add-contact-routing.module';
 
 import { AddContactPage } from './add-contact.page';
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    SharedModule,
     AddContactPageRoutingModule
   ],
   declarations: [AddContactPage]

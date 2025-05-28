@@ -1,17 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { authGuard } from './guards/auth.guard';
+import { AuthGuard } from '@angular/fire/auth-guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomePageModule),
-  },
-
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -26,34 +20,43 @@ const routes: Routes = [
         (m) => m.RegisterPageModule
       ),
   },
-
   {
-    path: 'contact',
+    path: 'home',
+    loadChildren: () =>
+      import('./pages/home/home.module').then((m) => m.HomePageModule),
+  },
+  {
+    path: 'contact/:id',
     loadChildren: () =>
       import('./pages/contact/contact.module').then((m) => m.ContactPageModule),
-    canActivate: [authGuard],
   },
   {
-    path: 'call',
+    path: 'start-call',
     loadChildren: () =>
-      import('./pages/call/call.module').then((m) => m.CallPageModule),
-    canActivate: [authGuard],
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardPageModule
+      import('./pages/start-call/start-call.module').then(
+        (m) => m.StartCallPageModule
       ),
-    canActivate: [authGuard],
   },
+
   {
     path: 'add-contact',
     loadChildren: () =>
       import('./pages/add-contact/add-contact.module').then(
         (m) => m.AddContactPageModule
       ),
-    canActivate: [authGuard],
+  },
+  {
+    path: 'edit-contact/:id',
+    loadChildren: () =>
+      import('./pages/edit-contact/edit-contact.module').then(
+        (m) => m.EditContactPageModule
+      ),
+  },
+
+  {
+    path: 'chat/:id',
+    loadChildren: () =>
+      import('./pages/chat/chat.module').then((m) => m.ChatPageModule),
   },
 ];
 

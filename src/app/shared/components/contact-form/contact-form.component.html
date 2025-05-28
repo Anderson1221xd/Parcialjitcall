@@ -1,0 +1,26 @@
+<ion-header [translucent]="true" class="header-gradient">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="header-title">✨ Nuevo Contacto</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="page-content" scroll-y="false">
+  <app-img-load></app-img-load>
+  <div class="card-contact slide-up">
+    <div class="card-decoration"></div>
+    <form [formGroup]="form">
+      <app-input [label]="'Nickname'" formControlName="nickname" [icon]="'person-outline'"
+                 [placeholder]="'Enter the nickname'"></app-input>
+      <app-input formControlName="phone" [label]="'Phone'" [placeholder]="'Enter the phone number'"
+                 [icon]="'id-card-outline'"></app-input>
+    </form>
+  </div>
+</ion-content>

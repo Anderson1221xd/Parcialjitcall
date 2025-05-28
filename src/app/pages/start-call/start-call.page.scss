@@ -1,0 +1,83 @@
+.incoming-call-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    #3b82f6,
+    #2563eb
+  ); // azul degradado moderno
+  color: white;
+  text-align: center;
+  padding: 0 20px;
+
+  .call-content {
+    width: 100%;
+    max-width: 360px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+    padding: 40px 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+
+    .caller-name {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .call-type {
+      font-size: 16px;
+      margin-bottom: 30px;
+      opacity: 0.85;
+      letter-spacing: 1.1px;
+    }
+
+    .call-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+
+      .circular-button {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 0.25);
+        transition: transform 0.2s ease;
+
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+
+      .accept-button {
+        background-color: #22c55e; // verde brillante
+        color: white;
+
+        &:hover {
+          background-color: #16a34a;
+        }
+      }
+
+      .reject-button {
+        background-color: #ef4444; // rojo brillante
+        color: white;
+
+        &:hover {
+          background-color: #b91c1c;
+        }
+      }
+    }
+  }
+}
+
+.incoming-call-header ion-toolbar {
+  --background: #2563eb;
+  --color: white;
+  font-weight: 600;
+}

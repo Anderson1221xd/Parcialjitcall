@@ -1,0 +1,61 @@
+.register-page {
+  --background: #fafafa;
+
+  .register-container {
+    max-width: 380px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-pic {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    border: 2px solid #ddd;
+    cursor: pointer;
+  }
+
+  .register-form {
+    width: 100%;
+
+    app-input {
+      margin-bottom: 18px;
+    }
+
+    .btn-submit {
+      --background: #3880ff;
+      --border-radius: 10px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(56, 128, 255, 0.4);
+
+      &:disabled {
+        --background: #a0bfff;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .btn-login-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    user-select: none;
+
+    strong {
+      color: #3880ff;
+      font-weight: 600;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,16 +1,41 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Bienvenido</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'Contacts'"></app-header>
 
-<ion-content class="ion-padding">
-  <h2>¡Bienvenido a nuestra app!</h2>
-  <p>Selecciona una opción para continuar:</p>
+<ion-content fullscreen class="contact-list-page">
+  <ng-container *ngIf="contacts?.length; else noContacts">
+    <ion-list>
+      <ion-item
+        *ngFor="let contact of contacts; trackBy: trackByUid"
+        lines="full"
+        button
+        detail="false"
+        (click)="goChat(contact.user.uid); $event.stopPropagation()"
+      >
+        <ion-avatar slot="start" class="avatar">
+          <img
+            [src]="contact.user.image || 'assets/default-avatar.png'"
+            alt="Avatar"
+          />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ contact.user.name }} {{ contact.user.lastname }}</h2>
+          <p>{{ contact.user.phone }}</p>
+        </ion-label>
+        <ion-button
+          class="call-button"
+          fill="solid"
+          color="primary"
+          slot="end"
+          (click)="startVideoCall(contact.user.uid); $event.stopPropagation()"
+        >
+          <ion-icon name="videocam-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ng-container>
 
-  <ion-button expand="block" routerLink="/login"> Iniciar sesión </ion-button>
-
-  <ion-button expand="block" color="secondary" routerLink="/register">
-    Registrarse
-  </ion-button>
+  <ng-template #noContacts>
+    <div class="no-contacts">No contacts available</div>
+  </ng-template>
 </ion-content>
+
+<app-footer></app-footer>
